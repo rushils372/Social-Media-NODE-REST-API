@@ -1,30 +1,19 @@
 const router = require("express").Router();
-const User = require("../models/User");
 
-// REGISTER
-router.get("/register", async (req,res)=> {
-    // const newUser = new User({
-    //     username:req.body.username,
-    //     email:req.body.email,
-    //     password:req.body.password,
-    // });
+const { test, updateUser, deleteUser, viewUser,followUser,unfollowUser, getFriendList } = require("./../controllers/users")
 
-    // try{
-    //     const user = await newUser.save();
-    //     res.status(200).json(user);
-    // } catch(err) {
-    //     console.log(err);      
-    // }
+router.get('/',test)
+//update user 
+router.put('/update/:id',updateUser)
+//delete user 
+router.delete('/delete/:id',deleteUser)
+//get a user
+router.get('/view',viewUser)
+//follow a user 
+router.put("/follow/:id",followUser)
+//unfollow a user
+router.put("/unfollow/:id",unfollowUser)
+//get friends
+router.get("/friends/:userId", getFriendList)
 
-    const user = await new User({
-        username:"John",
-        email:"john@gmail.com",
-        password:"123456"
-    })
-
-    await user.save();
-    res.send("ok");
-
-});
-
-module.exports = router;
+module.exports =router
